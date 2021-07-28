@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fsq.fsqsalary.dao.SalaryRecordDOMapper" >
+  <resultMap id="BaseResultMap" type="com.fsq.fsqsalary.po.SalaryRecordDO" >
+    <id column="pay_id" property="payId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="pre_tax_salary" property="preTaxSalary" jdbcType="DECIMAL" />
+    <result column="final_salary" property="finalSalary" jdbcType="DECIMAL" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="deduction" property="deduction" jdbcType="DECIMAL" />
+    <result column="pension_insur" property="pensionInsur" jdbcType="DECIMAL" />
+    <result column="medicare_insur" property="medicareInsur" jdbcType="DECIMAL" />
+    <result column="housing_provident" property="housingProvident" jdbcType="DECIMAL" />
+    <result column="rule" property="rule" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pay_id, employee_id, pay_date, status, pre_tax_salary, final_salary, tax, deduction, 
+    pension_insur, medicare_insur, housing_provident, rule
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salary_payment_record
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salary_payment_record
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fsq.fsqsalary.po.SalaryRecordDO" >
+    insert into salary_payment_record (pay_id, employee_id, pay_date, 
+      status, pre_tax_salary, final_salary, 
+      tax, deduction, pension_insur, 
+      medicare_insur, housing_provident, rule
+      )
+    values (#{payId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{payDate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{preTaxSalary,jdbcType=DECIMAL}, #{finalSalary,jdbcType=DECIMAL}, 
+      #{tax,jdbcType=DECIMAL}, #{deduction,jdbcType=DECIMAL}, #{pensionInsur,jdbcType=DECIMAL}, 
+      #{medicareInsur,jdbcType=DECIMAL}, #{housingProvident,jdbcType=DECIMAL}, #{rule,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fsq.fsqsalary.po.SalaryRecordDO" >
+    insert into salary_payment_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="payDate != null" >
+        pay_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="preTaxSalary != null" >
+        pre_tax_salary,
+      </if>
+      <if test="finalSalary != null" >
+        final_salary,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="deduction != null" >
+        deduction,
+      </if>
+      <if test="pensionInsur != null" >
+        pension_insur,
+      </if>
+      <if test="medicareInsur != null" >
+        medicare_insur,
+      </if>
+      <if test="housingProvident != null" >
+        housing_provident,
+      </if>
+      <if test="rule != null" >
+        rule,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="payDate != null" >
+        #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="preTaxSalary != null" >
+        #{preTaxSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="finalSalary != null" >
+        #{finalSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="deduction != null" >
+        #{deduction,jdbcType=DECIMAL},
+      </if>
+      <if test="pensionInsur != null" >
+        #{pensionInsur,jdbcType=DECIMAL},
+      </if>
+      <if test="medicareInsur != null" >
+        #{medicareInsur,jdbcType=DECIMAL},
+      </if>
+      <if test="housingProvident != null" >
+        #{housingProvident,jdbcType=DECIMAL},
+      </if>
+      <if test="rule != null" >
+        #{rule,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fsq.fsqsalary.po.SalaryRecordDO" >
+    update salary_payment_record
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="payDate != null" >
+        pay_date = #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="preTaxSalary != null" >
+        pre_tax_salary = #{preTaxSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="finalSalary != null" >
+        final_salary = #{finalSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="deduction != null" >
+        deduction = #{deduction,jdbcType=DECIMAL},
+      </if>
+      <if test="pensionInsur != null" >
+        pension_insur = #{pensionInsur,jdbcType=DECIMAL},
+      </if>
+      <if test="medicareInsur != null" >
+        medicare_insur = #{medicareInsur,jdbcType=DECIMAL},
+      </if>
+      <if test="housingProvident != null" >
+        housing_provident = #{housingProvident,jdbcType=DECIMAL},
+      </if>
+      <if test="rule != null" >
+        rule = #{rule,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fsq.fsqsalary.po.SalaryRecordDO" >
+    update salary_payment_record
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      pay_date = #{payDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      pre_tax_salary = #{preTaxSalary,jdbcType=DECIMAL},
+      final_salary = #{finalSalary,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      deduction = #{deduction,jdbcType=DECIMAL},
+      pension_insur = #{pensionInsur,jdbcType=DECIMAL},
+      medicare_insur = #{medicareInsur,jdbcType=DECIMAL},
+      housing_provident = #{housingProvident,jdbcType=DECIMAL},
+      rule = #{rule,jdbcType=VARCHAR}
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+</mapper>

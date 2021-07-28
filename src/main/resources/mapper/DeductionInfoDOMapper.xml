@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fsq.fsqsalary.dao.DeductionInfoDOMapper" >
+  <resultMap id="BaseResultMap" type="com.fsq.fsqsalary.po.DeductionInfoDO" >
+    <id column="deduction_id" property="deductionId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="child_deduction" property="childDeduction" jdbcType="INTEGER" />
+    <result column="pro_study_deduction" property="proStudyDeduction" jdbcType="INTEGER" />
+    <result column="illness_deduction" property="illnessDeduction" jdbcType="DECIMAL" />
+    <result column="housing_loan_deduction" property="housingLoanDeduction" jdbcType="INTEGER" />
+    <result column="housing_rent_deduction" property="housingRentDeduction" jdbcType="INTEGER" />
+    <result column="parent_deduction" property="parentDeduction" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    deduction_id, employee_id, child_deduction, pro_study_deduction, illness_deduction, 
+    housing_loan_deduction, housing_rent_deduction, parent_deduction
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from deduction_info
+    where deduction_id = #{deductionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from deduction_info
+    where deduction_id = #{deductionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fsq.fsqsalary.po.DeductionInfoDO" >
+    insert into deduction_info (deduction_id, employee_id, child_deduction, 
+      pro_study_deduction, illness_deduction, housing_loan_deduction, 
+      housing_rent_deduction, parent_deduction)
+    values (#{deductionId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{childDeduction,jdbcType=INTEGER}, 
+      #{proStudyDeduction,jdbcType=INTEGER}, #{illnessDeduction,jdbcType=DECIMAL}, #{housingLoanDeduction,jdbcType=INTEGER}, 
+      #{housingRentDeduction,jdbcType=INTEGER}, #{parentDeduction,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fsq.fsqsalary.po.DeductionInfoDO" >
+    insert into deduction_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deductionId != null" >
+        deduction_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="childDeduction != null" >
+        child_deduction,
+      </if>
+      <if test="proStudyDeduction != null" >
+        pro_study_deduction,
+      </if>
+      <if test="illnessDeduction != null" >
+        illness_deduction,
+      </if>
+      <if test="housingLoanDeduction != null" >
+        housing_loan_deduction,
+      </if>
+      <if test="housingRentDeduction != null" >
+        housing_rent_deduction,
+      </if>
+      <if test="parentDeduction != null" >
+        parent_deduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deductionId != null" >
+        #{deductionId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="childDeduction != null" >
+        #{childDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="proStudyDeduction != null" >
+        #{proStudyDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="illnessDeduction != null" >
+        #{illnessDeduction,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanDeduction != null" >
+        #{housingLoanDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="housingRentDeduction != null" >
+        #{housingRentDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="parentDeduction != null" >
+        #{parentDeduction,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fsq.fsqsalary.po.DeductionInfoDO" >
+    update deduction_info
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="childDeduction != null" >
+        child_deduction = #{childDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="proStudyDeduction != null" >
+        pro_study_deduction = #{proStudyDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="illnessDeduction != null" >
+        illness_deduction = #{illnessDeduction,jdbcType=DECIMAL},
+      </if>
+      <if test="housingLoanDeduction != null" >
+        housing_loan_deduction = #{housingLoanDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="housingRentDeduction != null" >
+        housing_rent_deduction = #{housingRentDeduction,jdbcType=INTEGER},
+      </if>
+      <if test="parentDeduction != null" >
+        parent_deduction = #{parentDeduction,jdbcType=INTEGER},
+      </if>
+    </set>
+    where deduction_id = #{deductionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fsq.fsqsalary.po.DeductionInfoDO" >
+    update deduction_info
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      child_deduction = #{childDeduction,jdbcType=INTEGER},
+      pro_study_deduction = #{proStudyDeduction,jdbcType=INTEGER},
+      illness_deduction = #{illnessDeduction,jdbcType=DECIMAL},
+      housing_loan_deduction = #{housingLoanDeduction,jdbcType=INTEGER},
+      housing_rent_deduction = #{housingRentDeduction,jdbcType=INTEGER},
+      parent_deduction = #{parentDeduction,jdbcType=INTEGER}
+    where deduction_id = #{deductionId,jdbcType=INTEGER}
+  </update>
+</mapper>

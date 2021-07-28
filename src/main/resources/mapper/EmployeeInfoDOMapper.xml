@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fsq.fsqsalary.dao.EmployeeInfoDOMapper" >
+  <resultMap id="BaseResultMap" type="com.fsq.fsqsalary.po.EmployeeInfoDO" >
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="CHAR" />
+    <result column="pre_tax_salary" property="preTaxSalary" jdbcType="DECIMAL" />
+    <result column="phone_num" property="phoneNum" jdbcType="CHAR" />
+    <result column="mail_address" property="mailAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    employee_id, employee_name, bank_account, pre_tax_salary, phone_num, mail_address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from employee_info
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employee_info
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fsq.fsqsalary.po.EmployeeInfoDO" >
+    insert into employee_info (employee_id, employee_name, bank_account, 
+      pre_tax_salary, phone_num, mail_address
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{bankAccount,jdbcType=CHAR}, 
+      #{preTaxSalary,jdbcType=DECIMAL}, #{phoneNum,jdbcType=CHAR}, #{mailAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fsq.fsqsalary.po.EmployeeInfoDO" >
+    insert into employee_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="preTaxSalary != null" >
+        pre_tax_salary,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="mailAddress != null" >
+        mail_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=CHAR},
+      </if>
+      <if test="preTaxSalary != null" >
+        #{preTaxSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=CHAR},
+      </if>
+      <if test="mailAddress != null" >
+        #{mailAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fsq.fsqsalary.po.EmployeeInfoDO" >
+    update employee_info
+    <set >
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=CHAR},
+      </if>
+      <if test="preTaxSalary != null" >
+        pre_tax_salary = #{preTaxSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=CHAR},
+      </if>
+      <if test="mailAddress != null" >
+        mail_address = #{mailAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fsq.fsqsalary.po.EmployeeInfoDO" >
+    update employee_info
+    set employee_name = #{employeeName,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=CHAR},
+      pre_tax_salary = #{preTaxSalary,jdbcType=DECIMAL},
+      phone_num = #{phoneNum,jdbcType=CHAR},
+      mail_address = #{mailAddress,jdbcType=VARCHAR}
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+</mapper>
