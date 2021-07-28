@@ -12,24 +12,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class RuleDO {
 
-    enum RuleType
-    {
-        Tax("tax"),Housing("housing"),Pension("pension"),Medicare("medicare"),Unemploy("unemploy");
-
-        private final String rule;
-        private RuleType(String rule)
-        {
-            this.rule=rule;
-        }
-
-        public String getRule()
-        {
-            return rule;
-        }
-    }
-
-
-
     private String name;
 
     private Integer ruleId;
