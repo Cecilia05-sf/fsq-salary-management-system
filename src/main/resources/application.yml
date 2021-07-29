@@ -11,3 +11,4 @@ mybatis:
   typeAliasesPackage: com.fsq.fsqsalary.po
   # 指定xml文件扫描路径
   mapper-locations: classpath*:mapper/*.xml
+  type-handlers-package: com.fsq.mybatis.handler

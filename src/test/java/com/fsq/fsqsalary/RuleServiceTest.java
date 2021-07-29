@@ -1,9 +1,7 @@
 package com.fsq.fsqsalary;
 
-import com.fsq.fsqsalary.dao.RuleDOMapper;
 import com.fsq.fsqsalary.po.RuleDO;
-import com.fsq.fsqsalary.po.RuleQuery;
-import com.fsq.fsqsalary.po.RuleTypeEnum;
+import com.fsq.fsqsalary.service.RuleService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -12,25 +10,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class RuleMapperTest {
+public class RuleServiceTest {
 
     @Autowired
-    private RuleDOMapper ruleDOMapper;
+    private RuleService ruleService;
+    private RuleDO ruleDO;
 
     @Test
     void contextLoads() {
     }
-
     @Test
-    void queryRule() {
-        RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
-        List<RuleDO> result = ruleDOMapper.queryPage(query);
-        BigDecimal a=result.get(6).getRangeUpper();
-        Assert.assertTrue( a != null);
+    void match() {
+        ruleDO = ruleService.matchRule(new BigDecimal("30000"));
+        Assert.assertNotNull(ruleDO);
     }
-
 }

@@ -17,11 +17,11 @@ public interface RuleDOMapper {
 
     RuleDO selectByPrimaryKey(Integer ruleId);
 
+    List<RuleDO> queryPage(RuleQuery query);
+
     int updateByPrimaryKeySelective(RuleDO record);
 
     int updateByPrimaryKey(RuleDO record);
-
-    List<RuleDO> queryPage(RuleQuery query);
 
     int countByQuery(RuleQuery query);
 }

@@ -18,7 +18,7 @@ public class RuleDO {
 
     private Integer taxLevel;
 
-    private String ruleType;
+    private RuleTypeEnum ruleType;
 
     private BigDecimal rangeUpper;
 

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fsq.fsqsalary.po.RuleDO" >
     <id column="rule_id" property="ruleId" jdbcType="INTEGER" />
     <result column="tax_level" property="taxLevel" jdbcType="INTEGER" />
-    <result column="rule_type" property="ruleType" jdbcType="VARCHAR" />
+    <result column="rule_type" property="ruleType"  jdbcType="VARCHAR"/>
     <result column="range_upper" property="rangeUpper" jdbcType="DECIMAL" />
     <result column="range_lower" property="rangeLower" jdbcType="DECIMAL" />
     <result column="rate" property="rate" jdbcType="DECIMAL" />
