@@ -12,6 +12,43 @@
   <sql id="Base_Column_List" >
     employee_id, employee_name, bank_account, pre_tax_salary, phone_num, mail_address
   </sql>
+
+  <sql id="conditionParams">
+    <where>
+      1 = 1
+      <if test="employeeId != null">
+        AND employee_id = #{employeeId,jdbcType=INTEGER}
+      </if>
+      <if test="employeeName != null">
+        AND employee_name = #{employeeName,jdbcType=VARCHAR}
+      </if>
+      <if test="employeeNameList != null and employeeNameList.size()>0">
+        AND employee_name in
+        <foreach collection="employeeNameList" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryPage" parameterType="EmployeeQuery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from employee_info
+    <include refid="conditionParams"/>
+    order by employee_id desc
+    limit #{pageFirstItem}, #{pageSize}
+  </select>
+
+
+  <select id="countByQuery" parameterType="RuleQuery" resultType="java.lang.Integer">
+    select
+    count(employee_id) AS num
+    from employee_info
+    <include refid="conditionParams"/>
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
