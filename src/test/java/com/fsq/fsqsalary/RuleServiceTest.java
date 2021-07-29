@@ -24,7 +24,7 @@ public class RuleServiceTest {
     }
     @Test
     void match() {
-        ruleDO = ruleService.matchRule(new BigDecimal("30000"));
+        ruleDO = ruleService.matchRule(new BigDecimal("965000.85"));
         Assert.assertNotNull(ruleDO);
     }
 }

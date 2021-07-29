@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RuleService {
@@ -23,11 +24,10 @@ public class RuleService {
         BigDecimal calTax = taxableSalary.subtract(new BigDecimal("5000"));
         RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
         List<RuleDO> result = ruleDOMapper.queryPage(query);
-        int i = 0;
-        while (true) {
-            ruleDO = result.get(6-i);
-            i++;
-            if (calTax.compareTo(ruleDO.getRangeUpper()) <= 0) {
+
+        for(int i=0;  i < result.size() ; i++){
+            ruleDO = result.get(i);
+            if (calTax.compareTo(ruleDO.getRangeLower()) > 0) {
                 break;
             }
         }

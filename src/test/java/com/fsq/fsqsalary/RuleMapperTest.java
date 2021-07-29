@@ -29,8 +29,8 @@ class RuleMapperTest {
     void queryRule() {
         RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
         List<RuleDO> result = ruleDOMapper.queryPage(query);
-        BigDecimal a=result.get(6).getRangeUpper();
-        Assert.assertTrue( a != null);
+        int a=result.size();
+        Assert.assertTrue( a ==7);
     }
 
 }
