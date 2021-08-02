@@ -8,29 +8,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class RuleService {
+
     @Autowired
     private RuleDOMapper ruleDOMapper;
-    private RuleDO ruleDO;
+    @Autowired
+    private SalaryCalcService salaryCalcService;
 
-    public RuleDO matchRule(BigDecimal preTaxSalary) {
-        //Todo:preTaxSalary-社保-公积金=taxableSalary
-        BigDecimal taxableSalary = preTaxSalary;
-        //Todo:动态配置起征点=5000元
-        BigDecimal calTax = taxableSalary.subtract(new BigDecimal("5000"));
-        RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
+    //从数据库获取社保规则
+    // (如果个人缴纳的社保项目变了怎么办？)
+    public  List<RuleDO> getSocialRule(){
+        List<String> ruleType = new ArrayList<>();
+        ruleType.add(RuleTypeEnum.pension.toString());
+        ruleType.add(RuleTypeEnum.unemploy.toString());
+        ruleType.add(RuleTypeEnum.medicare.toString());
+        RuleQuery query = RuleQuery.builder().ruleTypeList(ruleType).build();
         List<RuleDO> result = ruleDOMapper.queryPage(query);
+        return  result;
 
-        for(int i=0;  i < result.size() ; i++){
-            ruleDO = result.get(i);
-            if (calTax.compareTo(ruleDO.getRangeLower()) > 0) {
-                break;
+    }
+
+    //对于输入的应缴税工资部分，进行个税计算规则匹配
+    public BigDecimal[] MatchRule(BigDecimal calTax) {
+
+        BigDecimal[] matchResult = new BigDecimal[3];
+
+        if (calTax.compareTo(BigDecimal.ZERO) > 0) {
+            RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
+            List<RuleDO> result = ruleDOMapper.queryPage(query);
+
+            RuleDO ruleDO = new RuleDO();
+
+            for (int i = 0; i < result.size(); i++) {
+                ruleDO = result.get(i);
+                if (calTax.compareTo(ruleDO.getRangeLower()) > 0) {
+                    break;
+                }
             }
+
+            BigDecimal tax = calTax.multiply(ruleDO.getRate()).setScale(2, BigDecimal.ROUND_HALF_UP).subtract(ruleDO.getReduction());
+
+            matchResult[0] = (ruleDO.getRate());
+            matchResult[1] = (tax);
+        } else {
+            matchResult[0] = BigDecimal.ZERO;
+            matchResult[1] = BigDecimal.ZERO;
         }
-        return ruleDO;
+        return matchResult;
     }
 }

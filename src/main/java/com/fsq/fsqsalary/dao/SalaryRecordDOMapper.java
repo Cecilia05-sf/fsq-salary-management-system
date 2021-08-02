@@ -17,4 +17,6 @@ public interface SalaryRecordDOMapper {
     int updateByPrimaryKeySelective(SalaryRecordDO record);
 
     int updateByPrimaryKey(SalaryRecordDO record);
+
+
 }

@@ -17,6 +17,8 @@ public interface RuleDOMapper {
 
     RuleDO selectByPrimaryKey(Integer ruleId);
 
+    RuleDO selectByRuleType(String ruleType);
+
     List<RuleDO> queryPage(RuleQuery query);
 
     int updateByPrimaryKeySelective(RuleDO record);
@@ -24,4 +26,5 @@ public interface RuleDOMapper {
     int updateByPrimaryKey(RuleDO record);
 
     int countByQuery(RuleQuery query);
+
 }

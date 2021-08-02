@@ -34,6 +34,8 @@ public class SalaryRecordDO {
 
     private BigDecimal housingProvident;
 
+    private BigDecimal unemployInsur;
+
     private String rule;
 
 

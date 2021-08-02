@@ -11,13 +11,14 @@
     <result column="tax" property="tax" jdbcType="DECIMAL" />
     <result column="deduction" property="deduction" jdbcType="DECIMAL" />
     <result column="pension_insur" property="pensionInsur" jdbcType="DECIMAL" />
+    <result column="unemploy_insur" property="unemployInsur" jdbcType="DECIMAL" />
     <result column="medicare_insur" property="medicareInsur" jdbcType="DECIMAL" />
     <result column="housing_provident" property="housingProvident" jdbcType="DECIMAL" />
     <result column="rule" property="rule" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     pay_id, employee_id, pay_date, status, pre_tax_salary, final_salary, tax, deduction, 
-    pension_insur, medicare_insur, housing_provident, rule
+    pension_insur, medicare_insur, housing_provident, unemploy_insur, rule
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -33,12 +34,12 @@
     insert into salary_payment_record (pay_id, employee_id, pay_date, 
       status, pre_tax_salary, final_salary, 
       tax, deduction, pension_insur, 
-      medicare_insur, housing_provident, rule
+      medicare_insur, housing_provident, unemploy_insur, rule
       )
     values (#{payId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{payDate,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=TINYINT}, #{preTaxSalary,jdbcType=DECIMAL}, #{finalSalary,jdbcType=DECIMAL}, 
       #{tax,jdbcType=DECIMAL}, #{deduction,jdbcType=DECIMAL}, #{pensionInsur,jdbcType=DECIMAL}, 
-      #{medicareInsur,jdbcType=DECIMAL}, #{housingProvident,jdbcType=DECIMAL}, #{rule,jdbcType=VARCHAR}
+      #{medicareInsur,jdbcType=DECIMAL}, #{housingProvident,jdbcType=DECIMAL}, #{unemployInsur,jdbcType=DECIMAL}, #{rule,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.fsq.fsqsalary.po.SalaryRecordDO" >
@@ -76,6 +77,9 @@
       </if>
       <if test="housingProvident != null" >
         housing_provident,
+      </if>
+      <if test="unemployInsur != null" >
+        unemploy_insur,
       </if>
       <if test="rule != null" >
         rule,
@@ -115,6 +119,9 @@
       <if test="housingProvident != null" >
         #{housingProvident,jdbcType=DECIMAL},
       </if>
+      <if test="unemployInsur != null" >
+        #{unemployInsur,jdbcType=DECIMAL},
+      </if>
       <if test="rule != null" >
         #{rule,jdbcType=VARCHAR},
       </if>
@@ -153,6 +160,9 @@
       <if test="housingProvident != null" >
         housing_provident = #{housingProvident,jdbcType=DECIMAL},
       </if>
+      <if test="unemployInsur != null" >
+        unemploy_insur = #{unemployInsur,jdbcType=DECIMAL},
+      </if>
       <if test="rule != null" >
         rule = #{rule,jdbcType=VARCHAR},
       </if>
@@ -171,6 +181,7 @@
       pension_insur = #{pensionInsur,jdbcType=DECIMAL},
       medicare_insur = #{medicareInsur,jdbcType=DECIMAL},
       housing_provident = #{housingProvident,jdbcType=DECIMAL},
+      unemploy_insur = #{unemployInsur,jdbcType=DECIMAL},
       rule = #{rule,jdbcType=VARCHAR}
     where pay_id = #{payId,jdbcType=INTEGER}
   </update>
