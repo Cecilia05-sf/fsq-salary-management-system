@@ -1,10 +1,13 @@
 package com.fsq.fsqsalary.service;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fsq.fsqsalary.dao.DeductionInfoDOMapper;
 import com.fsq.fsqsalary.dao.EmployeeInfoDOMapper;
 import com.fsq.fsqsalary.dao.RuleDOMapper;
 import com.fsq.fsqsalary.po.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -39,19 +42,22 @@ public class SalaryCalcService {
         salaryRecordDO.setDeduction(DeductionCalc(employeeId).stream().reduce(BigDecimal.ZERO, BigDecimal::add)); //个税专项扣除总额
 
         BigDecimal calTax = TaxableSalaryCalc(employeeId, salaryRecordDO.getPreTaxSalary()); //应缴税部分工资
-        BigDecimal[] taxArchive = TaxCalcService(monthIndex, calTax); // 每月应缴税额
-        salaryRecordDO.setTax(taxArchive[monthIndex-1]); //当月应缴税额
-        salaryRecordDO.setFinalSalary(preTaxSalary.subtract(taxArchive[monthIndex-1]).subtract(HousingProvidentCalc(preTaxSalary)).subtract(SocialInsurCalc(preTaxSalary).stream().reduce(BigDecimal.ZERO, BigDecimal::add)) ); //实发工资
-        //todo: rule
-        //salaryRecordDO.setRule(rule);
+        List<CalcResultDTO> calcResult = taxCalc(monthIndex, calTax);
+        RuleDO rule = calcResult.get(monthIndex-1).getRuleDO();//当月使用的个税计算规则
+        salaryRecordDO.setRule(JSON.toJSONString(rule));
+        BigDecimal tax = calcResult.get(monthIndex-1).getTaxPreMonth();//当月应缴税额
+        salaryRecordDO.setTax(tax);
+
+        //RuleDO rule = JSON.parseObject("wfeewe", RuleDO.class);
+        salaryRecordDO.setFinalSalary(preTaxSalary.subtract(tax).subtract(HousingProvidentCalc(preTaxSalary)).subtract(SocialInsurCalc(preTaxSalary).stream().reduce(BigDecimal.ZERO, BigDecimal::add))); //实发工资
         return salaryRecordDO;
     }
 
     //工资试算，默认计算12个月monthIndex=12，且工资由用户输入而不是查员工信息表
-    public BigDecimal[] TrySalaryService(Integer employeeId, BigDecimal preTaxSalary) {
+    public List<CalcResultDTO> TrySalaryService(Integer employeeId, BigDecimal preTaxSalary) {
         BigDecimal calTax = TaxableSalaryCalc(employeeId, preTaxSalary);
-        BigDecimal[] tryResult = TaxCalcService(12, calTax);
-        return tryResult;
+        List<CalcResultDTO> calcResult = taxCalc(12, calTax);
+        return calcResult;
     }
 
     //社保计算，返回List[养老金，失业金，医保]
@@ -132,28 +138,31 @@ public class SalaryCalcService {
 
 
     //根据需缴税额计算每个月的缴税额
-    public BigDecimal[] TaxCalcService(Integer monthIndex, BigDecimal calTax) {
-
-        //每月应交税记录
-        BigDecimal[] taxArchive = new BigDecimal[12];
+    public List<CalcResultDTO> taxCalc(Integer monthIndex, BigDecimal calTax) {
+        List<CalcResultDTO> resultList = new ArrayList<>(monthIndex);
 
         //累计应缴税记录
         BigDecimal[] totalTaxArchive = new BigDecimal[12];
 
         for (int i = 0; i < monthIndex; i++) {
+
+            CalcResultDTO calcResultDTO = new CalcResultDTO();
             //截止当前月份，总需缴税部分
             BigDecimal calTaxSum = calTax.multiply(BigDecimal.valueOf(i + 1)).setScale(2, BigDecimal.ROUND_HALF_UP);
             //截止当前月份，累计需缴税额
-            BigDecimal[] taxMatch = ruleService.MatchRule(calTaxSum);
-            totalTaxArchive[i] = taxMatch[1];
+            Pair taxMatch = ruleService.MatchRule(calTaxSum);
+            calcResultDTO.setRuleDO((RuleDO) taxMatch.getFirst());
+
+            totalTaxArchive[i] = (BigDecimal) taxMatch.getSecond();
             //当不是第一个月的时候，每月应缴税额 = 当月累计需缴税额 - 前一个月累计需缴税额
-            if (taxArchive[0] == null) {
-                taxArchive[0] = totalTaxArchive[0];
+            if (i == 0) {
+                calcResultDTO.setTaxPreMonth(totalTaxArchive[0]);
             } else {
-                taxArchive[i] = totalTaxArchive[i].subtract(totalTaxArchive[i - 1]);
+                calcResultDTO.setTaxPreMonth(totalTaxArchive[i].subtract(totalTaxArchive[i - 1]));
             }
+            resultList.add(calcResultDTO);
         }
-        return taxArchive;
+        return resultList;
     }
 }
 

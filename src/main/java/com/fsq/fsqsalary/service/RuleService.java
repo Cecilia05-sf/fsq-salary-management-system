@@ -5,8 +5,8 @@ import com.fsq.fsqsalary.po.RuleDO;
 import com.fsq.fsqsalary.po.RuleQuery;
 import com.fsq.fsqsalary.po.RuleTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,7 @@ public class RuleService {
     }
 
     //对于输入的应缴税工资部分，进行个税计算规则匹配
-    public BigDecimal[] MatchRule(BigDecimal calTax) {
-
-        BigDecimal[] matchResult = new BigDecimal[3];
+    public Pair<RuleDO, BigDecimal> MatchRule(BigDecimal calTax) {
 
         if (calTax.compareTo(BigDecimal.ZERO) > 0) {
             RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
@@ -51,13 +49,9 @@ public class RuleService {
             }
 
             BigDecimal tax = calTax.multiply(ruleDO.getRate()).setScale(2, BigDecimal.ROUND_HALF_UP).subtract(ruleDO.getReduction());
-
-            matchResult[0] = (ruleDO.getRate());
-            matchResult[1] = (tax);
+            return Pair.of(ruleDO, tax);
         } else {
-            matchResult[0] = BigDecimal.ZERO;
-            matchResult[1] = BigDecimal.ZERO;
+            return Pair.of(null,BigDecimal.ZERO);
         }
-        return matchResult;
     }
 }

@@ -20,12 +20,57 @@
     pay_id, employee_id, pay_date, status, pre_tax_salary, final_salary, tax, deduction, 
     pension_insur, medicare_insur, housing_provident, unemploy_insur, rule
   </sql>
+
+  <sql id="conditionParams">
+    <where>
+      1 = 1
+      <if test="payId != null">
+        AND pay_id = #{payId,jdbcType=INTEGER}
+      </if>
+      <if test="employeeId != null">
+        AND employee_id = #{employeeId,jdbcType=INTEGER}
+      </if>
+      <if test="employeeIdList != null and employeeIdList.size()>0">
+        AND employee_id in
+        <foreach collection="employeeIdList" index="index" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryPage" parameterType="SalaryRecordQuery" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from salary_payment_record
+    <include refid="conditionParams"/>
+    order by pay_id desc
+    limit #{pageFirstItem}, #{pageSize}
+  </select>
+
+
+  <select id="countByQuery" parameterType="SalaryRecordQuery" resultType="java.lang.Integer">
+    select
+    count(pay_id) AS num
+    from salary_payment_record
+    <include refid="conditionParams"/>
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from salary_payment_record
     where pay_id = #{payId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByEmployeeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from salary_payment_record
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from salary_payment_record
     where pay_id = #{payId,jdbcType=INTEGER}
@@ -185,4 +230,5 @@
       rule = #{rule,jdbcType=VARCHAR}
     where pay_id = #{payId,jdbcType=INTEGER}
   </update>
+
 </mapper>

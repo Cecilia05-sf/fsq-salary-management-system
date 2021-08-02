@@ -1,7 +1,7 @@
-
 package com.fsq.fsqsalary;
 
 import com.fsq.fsqsalary.dao.RuleDOMapper;
+import com.fsq.fsqsalary.dao.SalaryRecordDOMapper;
 import com.fsq.fsqsalary.po.RuleDO;
 import com.fsq.fsqsalary.po.RuleQuery;
 import com.fsq.fsqsalary.po.RuleTypeEnum;
@@ -21,24 +21,18 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class RuleMapperTest {
+public class SalaryRecordDOMapperTest {
 
     @Autowired
-    private RuleDOMapper ruleDOMapper;
+    SalaryCalcService salaryCalcService;
     @Autowired
-    private SalaryCalcService salaryCalcService;
-    @Autowired
-    private RuleService ruleService;
-
-
+    SalaryRecordDOMapper salaryRecordDOMapper;
 
     @Test
-    void salaryCalTest() {
+    void insertRecordTest() {
         SalaryRecordDO salaryRecordDO = new SalaryRecordDO();
         salaryRecordDO = salaryCalcService.SalaryService(1, 1);
-        Assert.assertNotNull(salaryRecordDO);
+        int i = salaryRecordDOMapper.insert(salaryRecordDO);
+        Assert.assertTrue( i==1 );
     }
-
-
-
 }
