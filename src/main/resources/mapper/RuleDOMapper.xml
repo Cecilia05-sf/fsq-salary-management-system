@@ -37,7 +37,7 @@
     <include refid="Base_Column_List"/>
     from rule
     <include refid="conditionParams"/>
-    order by rule_id desc
+    order by rule_id
     limit #{pageFirstItem}, #{pageSize}
   </select>
 

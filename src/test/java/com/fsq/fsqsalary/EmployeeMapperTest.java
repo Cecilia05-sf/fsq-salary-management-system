@@ -36,8 +36,8 @@ public class EmployeeMapperTest {
 
     @Test
     void queryEmployee() {
-        EmployeeQuery query = EmployeeQuery.builder().employeeName("Zhangsan").build();
-        List<EmployeeInfoDO> result = employeeInfoDOMapper.queryPage(query);
-        Assert.assertNotNull(result);
+        EmployeeQuery query = EmployeeQuery.builder().build();
+        List<EmployeeInfoDO> all = employeeInfoDOMapper.queryPage(query);
+        Assert.assertNotNull(all);
     }
 }

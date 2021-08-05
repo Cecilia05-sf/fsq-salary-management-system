@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-duplicate-payment</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:src="@{/js/jquery-3.1.1.min.js}">
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class="alert alert-danger  alert-dismissible" role="alert" th:each = "record:${records}">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span th:text="${'工号'+record.employeeId+'员工的'+record.payMonth+'工资已于'+record.payDate+'发放过，请勿重复发放！'}"></span>
+</div>
+<br>
+&nbsp;&nbsp;&nbsp;<<a href="/salary" role="button"><input class="btn btn-info" type="button" value="返回"></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</body>
+</html>

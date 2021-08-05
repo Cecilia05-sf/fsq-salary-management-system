@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-show-rules</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body class="container">
+<br>
+<h1>工资计算规则 </h1>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>个税计算规则&emsp;<small>个税起征点：每月5000元</small></h4></div>
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>级数</th>
+            <th>全年应纳税所得额下限</th>
+            <th>全年应纳税所得额上限</th>
+            <th>税率</th>
+            <th>速算扣除数</th>
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "taxRule:${tax}">
+            <td th:text="${taxRule.taxLevel}" ></td>
+            <td th:text="${taxRule.rangeLower}" ></td>
+            <td th:text="${taxRule.rangeUpper}" ></td>
+            <td th:text="${taxRule.rate}" ></td>
+            <td th:text="${taxRule.reduction}"></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>社保计算规则&emsp;<small>以2021年杭州市现行规定为例</small></h4></div>
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>项目名称</th>
+            <th>缴纳基数下限</th>
+            <th>缴纳基数上限</th>
+            <th>个人缴纳比例</th>
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "socialRule:${social}">
+            <td th:text="${socialRule.ruleType}" ></td>
+            <td th:text="${socialRule.rangeLower}" ></td>
+            <td th:text="${socialRule.rangeUpper}" ></td>
+            <td th:text="${socialRule.rate}" ></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>公积金计算规则&emsp;<small>以2021年杭州市现行规定为例</small></h4></div>
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>项目名称</th>
+            <th>缴纳基数下限</th>
+            <th>缴纳基数上限</th>
+            <th>个人缴纳比例</th>
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "housingRule:${housing}">
+            <td th:text="${housingRule.ruleType}" ></td>
+            <td th:text="${housingRule.rangeLower}" ></td>
+            <td th:text="${housingRule.rangeUpper}" ></td>
+            <td th:text="${housingRule.rate}" ></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</body>
+</html>

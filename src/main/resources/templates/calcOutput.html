@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-salary-calculator</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body class="container">
+<br>
+<h1>工资试算结果 </h1>
+<br>
+<div class="panel panel-default">
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>月份</th>
+            <th>实发工资</th>
+            <th>当月缴税额</th>
+            <th>当月个税级数</th>
+            <th>养老保险</th>
+            <th>医疗保险</th>
+            <th>失业保险</th>
+            <th>个税附加专项扣除总额</th>
+            <!--            <th>Edit</th>-->
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "salary:${tryResult}">
+            <td th:text="${salary.payMonth}"></td>
+            <td th:text="${salary.finalSalary}" ></td>
+            <td th:text="${salary.tax}" ></td>
+            <td th:text="${salary.rule}"></td>
+            <td th:text="${salary.pensionInsur}" ></td>
+            <td th:text="${salary.medicareInsur}" ></td>
+            <td th:text="${salary.unemployInsur}" ></td>
+            <td th:text="${salary.deduction}" ></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+<a href="/try" role="button"><input class="btn btn-info" type="button" value="返回"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</body>
+</html>

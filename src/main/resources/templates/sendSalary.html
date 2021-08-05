@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-send-salary</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body class="container">
+<br>
+<h1>薪酬发放 </h1>
+<h3>请选择发放月份并输入发放员工工号</h3>
+<br>
+
+<form action="sendsalaryresult" class="form-horizontal" method="get">
+    <div class="form-group">
+        <label for="monthIndex" class="col-sm-1 control-label">发放月份</label>
+        <div class="col-sm-5">
+            <input required class="form-control" type="month" id="monthIndex" name="monthIndex"  placeholder="请选择月份">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="employeeId" class="col-sm-1 control-label">工号</label>
+        <div class="col-sm-5">
+            <input required class="form-control" type="number" id="employeeId" name="employeeId"  placeholder="请输入工号">
+        </div>
+    </div>
+    <div class="form-group">
+        <br>
+        <input class="btn btn-info" type="submit" value="发放">&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <input class="btn btn-info" type="reset" value="重置" >&nbsp;
+        &nbsp;&nbsp;&nbsp;
+        <a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+    </div>
+</form>
+</body>
+</html>

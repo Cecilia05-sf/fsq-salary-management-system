@@ -38,5 +38,7 @@ public class SalaryRecordDO {
 
     private String rule;
 
+    private String payMonth;
+
 
 }

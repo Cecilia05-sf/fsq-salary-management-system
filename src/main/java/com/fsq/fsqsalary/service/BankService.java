@@ -15,9 +15,7 @@ public class BankService {
     private SalaryRecordDOMapper salaryRecordDOMapper;
 
     public boolean transfer(Integer employeeId, Integer payId){
-       String bankAcct = employeeInfoDOMapper.selectByPrimaryKey(employeeId).getBankAccount();
-       BigDecimal finalSalary = salaryRecordDOMapper.selectByPrimaryKey(payId).getFinalSalary();
-       //todo:调用银行接口
+       //调用银行接口
        return true;
     }
 }

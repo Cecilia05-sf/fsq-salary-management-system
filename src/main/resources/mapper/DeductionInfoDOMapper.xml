@@ -39,7 +39,7 @@
     <include refid="Base_Column_List"/>
     from deduction_info
     <include refid="conditionParams"/>
-    order by employee_id desc
+    order by employee_id
     limit #{pageFirstItem}, #{pageSize}
   </select>
 

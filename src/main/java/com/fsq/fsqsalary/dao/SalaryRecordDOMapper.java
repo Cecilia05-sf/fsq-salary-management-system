@@ -27,6 +27,6 @@ public interface SalaryRecordDOMapper {
 
     int updateByPrimaryKey(SalaryRecordDO record);
 
-//    int updateStatus(Integer payId);
+    int updateStatus(SalaryRecordDO record);
 
 }

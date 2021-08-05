@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-salary-record</title>
+</head>
+<body>
+<br>
+<h1>薪酬发放结果 </h1>
+<h4>薪酬已发放，请查看各项金额</h4>
+<br>
+<div class="panel panel-default">
+    <ul >
+        <li th:text="${'已发工资月份: ' +sendSalaryResult.payMonth}">已发工资月份</li>
+        <li th:text="${'工号:       ' +sendSalaryResult.employeeId}">工号</li>
+        <li th:text="${'应发工资:    ' +sendSalaryResult.preTaxSalary}">应发工资</li>
+        <li th:text="${'实发工资:    ' +sendSalaryResult.finalSalary}">实发工资</li>
+        <li th:text="${'缴税额:      ' +sendSalaryResult.tax}">缴税额</li>
+        <li th:text="${'养老保险:    ' +sendSalaryResult.pensionInsur}">养老保险</li>
+        <li th:text="${'医疗保险:    ' +sendSalaryResult.medicareInsur}">医疗保险</li>
+        <li th:text="${'失业保险:    ' +sendSalaryResult.unemployInsur}">失业保险</li>
+        <li th:text="${'公积金:      ' +sendSalaryResult.housingProvident}">公积金</li>
+        <li th:text="${'本月个税规则: ' +sendSalaryResult.rule}">本月个税级数及税率</li>
+        <li th:text="${'个税专项扣除额:' +sendSalaryResult.deduction}">个税专项扣除额</li>
+    </ul>
+</div>
+<a href="/salary/send" role="button"><input class="btn btn-info" type="button" value="继续发薪"></a>
+<a href="/salary" role="button"><input class="btn btn-info" type="button" value="查看发薪记录"></a>
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</body>
+</html>

@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 @Builder
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class RuleDO {
@@ -28,4 +27,11 @@ public class RuleDO {
 
     private BigDecimal reduction;
 
+    @Override
+    public String toString() {
+        return  "\n个税级数=" + taxLevel +
+                "\n缴纳比例=" + rate +
+                "\n上限=" + rangeUpper +
+                "\n下限=" + rangeLower ;
+    }
 }

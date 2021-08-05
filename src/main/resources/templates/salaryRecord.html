@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-salary-record</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+
+<body class="container">
+<br>
+<h1>工资发放记录 </h1>
+<br>
+<div class="panel panel-default">
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>工号</th>
+            <th>已发月份</th>
+            <th>发放时间</th>
+            <th>发放状态</th>
+            <th>实发金额</th>
+            <th>缴税额</th>
+            <th>公积金</th>
+            <th>养老保险</th>
+            <th>医疗保险</th>
+            <th>失业保险</th>
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "record:${all}">
+            <td th:text="${record.employeeId}"></td>
+            <td th:text="${record.payMonth}" ></td>
+            <td th:text="${record.payDate}"></td>
+            <td th:text="${record.status}" ></td>
+            <td th:text="${record.finalSalary}" ></td>
+            <td th:text="${record.tax}" ></td>
+            <td th:text="${record.housingProvident}" ></td>
+            <td th:text="${record.pensionInsur}" ></td>
+            <td th:text="${record.medicareInsur}" ></td>
+            <td th:text="${record.unemployInsur}" ></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+<a href="/salary/send" role="button"><input class="btn btn-info" type="button" value="薪水发放"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</body>
+</html>

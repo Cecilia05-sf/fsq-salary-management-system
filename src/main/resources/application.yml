@@ -3,12 +3,20 @@ spring:
     default-domain: mybatis
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/salary_management_system
+    url: jdbc:mysql://localhost:3306/salary_management_system?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     username: root
-    password: 970505
+    password: 123456
+  profiles:
+    active: dev
+
+
+
 mybatis:
   # 指定实体类包路径
   typeAliasesPackage: com.fsq.fsqsalary.po
   # 指定xml文件扫描路径
   mapper-locations: classpath*:mapper/*.xml
   type-handlers-package: com.fsq.mybatis.handler
+
+
+

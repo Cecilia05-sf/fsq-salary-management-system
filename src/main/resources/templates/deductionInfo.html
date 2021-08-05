@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-deduction-info</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:src="@{/js/jquery-3.1.1.min.js}">
+</head>
+<body class="container">
+<!--<img th:src="@{/img/bg.jpg}">-->
+<br>
+<h1>个税专项附加扣除 </h1>
+<br>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading">员工个税专项信息表</div>
+    <table class="table table-striped">
+        <THEAD>
+        <tr>
+            <th>工号</th>
+            <th>子女教育</th>
+            <th>继续教育</th>
+            <th>大病医疗</th>
+            <th>住房贷款利息</th>
+            <th>住房租金</th>
+            <th>赡养老人</th>
+            <th>编辑</th>
+            <th>删除</th>
+        </tr>
+        </THEAD>
+        <TBODY>
+        <tr th:each = "deduction:${all}">
+            <td th:text="${deduction.employeeId}" ></td>
+            <td th:text="${deduction.childDeduction}" ></td>
+            <td th:text="${deduction.proStudyDeduction}" ></td>
+            <td th:text="${deduction.illnessDeduction}" ></td>
+            <td th:text="${deduction.housingLoanDeduction}" ></td>
+            <td th:text="${deduction.housingRentDeduction}" ></td>
+            <td th:text="${deduction.parentDeduction}" ></td>
+            <td ><a th:href="${'/deduction/edit/'+deduction.deductionId}">编辑</a></td>
+            <td><a th:href="${'/deduction/del/'+deduction.deductionId}" >删除</a></td>
+        </tr>
+        </TBODY>
+    </table>
+</div>
+<br>
+<a href="deduction/toAdd" role="button"><input class="btn btn-info" type="button" value="添加"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+
+</body>
+</html>

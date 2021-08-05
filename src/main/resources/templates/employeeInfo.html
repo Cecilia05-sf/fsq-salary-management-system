@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>fsq-employee</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:src="@{/js/jquery-3.1.1.min.js}">
+</head>
+<body class="container">
+<!--<img th:src="@{/img/bg.jpg}">-->
+<br>
+<h1>员工信息表 </h1>
+<br>
+<br>
+<div class="panel panel-default">
+  <div class="panel-heading">员工基本信息</div>
+  <table class="table table-striped">
+    <THEAD>
+    <tr>
+      <th>工号</th>
+      <th>员工姓名</th>
+      <th>应发工资</th>
+      <th>银行卡号</th>
+      <th>手机号</th>
+      <th>邮箱地址</th>
+      <th>编辑</th>
+      <th>删除</th>
+    </tr>
+    </THEAD>
+    <TBODY>
+    <tr th:each = "user:${all}">
+      <td th:text="${user.employeeId}" ></td>
+      <td th:text="${user.employeeName}" ></td>
+      <td th:text="${user.preTaxSalary}" ></td>
+      <td th:text="${user.bankAccount}" ></td>
+      <td th:text="${user.phoneNum}" ></td>
+      <td th:text="${user.mailAddress}" ></td>
+      <td ><a th:href="${'/employee/edit/'+user.employeeId}">编辑</a></td>
+      <td><a th:href="${'/employee/del/'+user.employeeId}" >删除</a></td>
+    </tr>
+    </TBODY>
+  </table>
+</div>
+<br>
+<a href="employee/toAdd" role="button"><input class="btn btn-info" type="button" value="添加"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+
+</body>
+</html>

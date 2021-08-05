@@ -12,7 +12,8 @@ import java.util.List;
 @Setter
 @Builder
 public class SalaryRecordQuery extends BaseQuery{
-    private Integer payId;
+    private String payMonth;
     private Integer employeeId;
+    private List<String> payMonthList;
     private List<Integer> employeeIdList;
 }

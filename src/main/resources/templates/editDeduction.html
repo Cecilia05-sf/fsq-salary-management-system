@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-edit-deductionInfo</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body class="container">
+<br>
+<h1>编辑个税专项扣除信息 </h1>
+<br>
+<form action="/add" method="post"  class="form-horizontal">
+    <fieldset disabled>
+        <div class="form-group has-success has-feedback">
+            <label for="userId" class="col-sm-1 control-label">工号</label>
+            <div class="col-sm-5">
+                <input type="text" th:value="${deduction.employeeId}"  placeholder="Disabled input" class="form-control" id="userId" aria-describedby="inputSuccess2Status">
+                <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+            </div>
+        </div>
+    </fieldset>
+    <input type="number" name="userId" th:value="${deduction.employeeId}" style="display:none">
+    <div class="form-group">
+        <label for="childDeduction" class="col-sm-1 control-label">子女教育</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" th:value="${deduction.childDeduction}" id="childDeduction"  name="childDeduction">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="proStudyDeduction" class="col-sm-1 control-label">继续教育</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="proStudyDeduction" name="proStudyDeduction" value="1"> 本人正在进行学历继续教育<br>
+            <input class="form-control" type="radio"  name="proStudyDeduction" value="0"> 本人未参与学历继续教育<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="illnessDeduction" class="col-sm-1 control-label">大病医疗</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" id="illnessDeduction" th:value="${deduction.illnessDeduction}" name="illnessDeduction">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="housingLoanDeduction" class="col-sm-1 control-label">住房贷款利息</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="housingLoanDeduction" name="housingLoanDeduction" value="1"> 首套房在偿还贷款期间<br>
+            <input class="form-control" type="radio"  name="housingLoanDeduction" value="0"> 其他<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="housingRentDeduction" class="col-sm-1 control-label">住房租金</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="housingRentDeduction" name="housingRentDeduction" value="1"> 在杭州无自有住房且正在租房<br>
+            <input class="form-control" type="radio"  name="housingRentDeduction" value="0"> 其他<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parentDeduction" class="col-sm-1 control-label">赡养老人</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="parentDeduction" name="parentDeduction" value="2"> 独生子女<br>
+            <input class="form-control" type="radio"  name="parentDeduction" value="1"> 非独生子女<br>
+            <input class="form-control" type="radio"  name="parentDeduction" value="0"> 无赡养义务<br>
+        </div>
+    </div>
+    <br>
+    <input type="submit" class="btn btn-info" value="确认">
+    &nbsp;&nbsp;&nbsp;
+    <a th:href="${'/edit/'+deduction.deductionId}" role="button"><input class="btn btn-info" type="button" value="重置"></a>
+
+    &nbsp;&nbsp;&nbsp;
+    <a href="/deduction" role="button"><input class="btn btn-info" type="button" value="返回个税信息页"></a>
+
+    &nbsp;&nbsp;&nbsp;
+    <a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+</form>
+</body>
+</html>

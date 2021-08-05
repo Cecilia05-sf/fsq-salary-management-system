@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fsq-add-deduction</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body class="container">
+<br>
+<h1>添加个税附加专项扣除信息  </h1>
+<br>
+<h4>请填写以下信息 </h4>
+<br>
+<form action="/deduction/add" class="form-horizontal" method="post">
+    <div class="form-group">
+        <label for="employeeId" class="col-sm-1 control-label">工号</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" id="employeeId" name="employeeId">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="childDeduction" class="col-sm-1 control-label">子女教育</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" id="childDeduction" placeholder="请填写正在接受全日制教育的子女数量" name="childDeduction">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="proStudyDeduction" class="col-sm-1 control-label">继续教育</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="proStudyDeduction" name="proStudyDeduction" value="1"> 本人正在进行学历继续教育<br>
+            <input class="form-control" type="radio"  name="proStudyDeduction" value="0"> 本人未参与学历继续教育<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="illnessDeduction" class="col-sm-1 control-label">大病医疗</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="number" id="illnessDeduction" placeholder="请填写去年医保个人自付金额超过15000元的部分" name="illnessDeduction">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="housingLoanDeduction" class="col-sm-1 control-label">住房贷款利息</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="housingLoanDeduction" name="housingLoanDeduction" value="1"> 首套房在偿还贷款期间<br>
+            <input class="form-control" type="radio"  name="housingLoanDeduction" value="0"> 其他<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="housingRentDeduction" class="col-sm-1 control-label">住房租金</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="housingRentDeduction" name="housingRentDeduction" value="1"> 在杭州无自有住房且正在租房<br>
+            <input class="form-control" type="radio"  name="housingRentDeduction" value="0"> 其他<br>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parentDeduction" class="col-sm-1 control-label">赡养老人</label>
+        <div class="col-sm-5">
+            <input class="form-control" type="radio" id="parentDeduction" name="parentDeduction" value="2"> 独生子女<br>
+            <input class="form-control" type="radio"  name="parentDeduction" value="1"> 非独生子女<br>
+            <input class="form-control" type="radio"  name="parentDeduction" value="0"> 无赡养义务<br>
+        </div>
+    </div>
+
+    <br>
+    <div class="form-group">
+
+        <input class="btn btn-info" type="submit" value="提交"></a>
+        &nbsp;&nbsp;&nbsp;
+        <input class="btn btn-info" value="重置" type="reset">
+        &nbsp;&nbsp;&nbsp;
+        <a href="/index" role="button"><input class="btn btn-info" type="button" value="首页"></a>
+    </div>
+</form>
+</body>
+</html>
