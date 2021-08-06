@@ -30,11 +30,13 @@ public class SalaryRecordDO {
 
     private BigDecimal pensionInsur;
 
-    private BigDecimal medicareInsur;
+    private BigDecimal TaxRuleConvertermedicareInsur;
 
     private BigDecimal housingProvident;
 
     private BigDecimal unemployInsur;
+
+    private BigDecimal MedicareInsur;
 
     private String rule;
 
