@@ -21,14 +21,14 @@ public class RuleController {
 
     @RequestMapping("/rule")
     public String getRule(Model model) {
-        RuleQuery query1 = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
+        RuleQuery query1 = RuleQuery.builder().ruleType(RuleTypeEnum.TAX.getType()).build();
         List<RuleDO> tax = ruleDOMapper.queryPage(query1);
         model.addAttribute("tax", tax);
 
         List<RuleDO> social = ruleService.getSocialRule();
         model.addAttribute("social", social);
 
-        RuleDO housing = ruleDOMapper.selectByRuleType(RuleTypeEnum.housing.toString());
+        RuleDO housing = ruleDOMapper.selectByRuleType(RuleTypeEnum.HOUSING.getType());
         model.addAttribute("housing", housing);
         return "displayRule";
     }

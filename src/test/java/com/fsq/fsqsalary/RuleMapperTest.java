@@ -3,7 +3,8 @@ package com.fsq.fsqsalary;
 
 import com.fsq.fsqsalary.dao.RuleDOMapper;
 import com.fsq.fsqsalary.po.RuleDO;
-import com.fsq.fsqsalary.po.SalaryRecordDO;
+import com.fsq.fsqsalary.po.RuleQuery;
+import com.fsq.fsqsalary.po.RuleTypeEnum;
 import com.fsq.fsqsalary.service.RuleServiceImpl;
 import com.fsq.fsqsalary.service.SalaryCalcServiceImpl;
 import org.junit.Assert;
@@ -27,7 +28,6 @@ class RuleMapperTest {
     private RuleServiceImpl ruleService;
 
 
-
     @Test
     void salaryCalTest() {
         List<RuleDO> social = ruleService.getSocialRule();
@@ -35,5 +35,10 @@ class RuleMapperTest {
     }
 
 
-
+    @Test
+    void ruleMapperTest(){
+       RuleQuery query= RuleQuery.builder().ruleType(RuleTypeEnum.TAX.getType()).build();
+      List<RuleDO> ruleDOList= ruleDOMapper.queryPage(query);
+       Assert.assertNotNull(ruleDOList);
+    }
 }

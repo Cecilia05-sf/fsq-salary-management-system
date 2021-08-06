@@ -35,7 +35,7 @@ public class SalaryRecordDOMapperTest {
 
         //需缴税工资>0
         if (calTax.compareTo(BigDecimal.ZERO) > 0) {
-            RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
+            RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.TAX.getType()).build();
             List<RuleDO> result = ruleDOMapper.queryPage(query);
 
             RuleDO ruleDO = new RuleDO();

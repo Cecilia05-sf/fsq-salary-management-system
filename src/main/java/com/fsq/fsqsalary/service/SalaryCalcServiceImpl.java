@@ -26,6 +26,7 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
     RuleServiceImpl ruleServiceImpl;
 
     //计算工资发放详情
+    @Override
     public SalaryRecordDO salaryCalcMonthly(Integer employeeId, Integer monthIndex) {
         BigDecimal preTaxSalary = employeeInfoDOMapper.selectByPrimaryKey(employeeId).getPreTaxSalary();
         List<SalaryRecordDO> tryResult =trySalaryCalc(employeeId, preTaxSalary);
@@ -37,6 +38,7 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
     }
 
     //工资试算，默认计算12个月monthIndex=12，且工资由用户输入而不是查员工信息表
+    @Override
     public List<SalaryRecordDO> trySalaryCalc(Integer employeeId, BigDecimal preTaxSalary) {
         List<BigDecimal> socialInsur = socialInsurCalc(preTaxSalary); //社保
         BigDecimal housingProvident = housingProvidentCalc(preTaxSalary); //公积金
@@ -85,10 +87,11 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
     }
 
     //计算公积金，返回公积金缴纳额
+    @Override
     public BigDecimal housingProvidentCalc(BigDecimal preTaxSalary) {
 
         //从数据库获取公积金规则
-        RuleDO result = ruleDOMapper.selectByRuleType(RuleTypeEnum.housing.toString());
+        RuleDO result = ruleDOMapper.selectByRuleType(RuleTypeEnum.HOUSING.getType());
         BigDecimal housingProvident;
 
         //如果工资超过公积金基数上限用上限计算，低于下限用下限计算，介于两者之间用工资计算
@@ -105,6 +108,7 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
     }
 
     //计算个税附加专项扣除额度
+    @Override
     public List<BigDecimal> deductionCalc(Integer employeeId) {
         //从数据库获取制定员工的专项扣除信息
         DeductionInfoDO deductionInfoDO = deductionInfoDOMapper.selectByEmployeeId(employeeId);
@@ -122,6 +126,7 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
     }
 
     //计算需缴税部分的工资额
+    @Override
     public BigDecimal taxableSalaryCalc(Integer employeeId, BigDecimal preTaxSalary) {
 
         //Todo:动态配置起征点=5000元
@@ -141,7 +146,8 @@ public class SalaryCalcServiceImpl implements SalaryCalcService{
 
 
     //根据需缴税额计算每个月的缴税额
-    public List<CalcResultDTO> taxCalc( BigDecimal calTax) {
+    @Override
+    public List<CalcResultDTO> taxCalc(BigDecimal calTax) {
         List<CalcResultDTO> resultList = new ArrayList<>(12);
 
         //累计应缴税记录

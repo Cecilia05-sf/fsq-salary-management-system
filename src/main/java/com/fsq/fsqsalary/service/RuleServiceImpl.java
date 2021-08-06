@@ -19,11 +19,12 @@ public class RuleServiceImpl implements RuleService{
 
     //从数据库获取社保规则
     // (如果个人缴纳的社保项目变了怎么办？)
+    @Override
     public  List<RuleDO> getSocialRule(){
         List<String> ruleType = new ArrayList<>();
-        ruleType.add(RuleTypeEnum.pension.toString());
-        ruleType.add(RuleTypeEnum.unemploy.toString());
-        ruleType.add(RuleTypeEnum.medicare.toString());
+        ruleType.add(RuleTypeEnum.PENSION.getType());
+        ruleType.add(RuleTypeEnum.UNEMPLOY.getType());
+        ruleType.add(RuleTypeEnum.MEDICARE.getType());
         RuleQuery query = RuleQuery.builder().ruleTypeList(ruleType).build();
         List<RuleDO> result = ruleDOMapper.queryPage(query);
         return  result;
@@ -31,11 +32,12 @@ public class RuleServiceImpl implements RuleService{
     }
 
     //对于输入的应缴税工资部分，进行个税计算规则匹配
+    @Override
     public Pair<RuleDO, BigDecimal> matchRule(BigDecimal calTax) {
 
         //需缴税工资>0
         if (calTax.compareTo(BigDecimal.ZERO) > 0) {
-            RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.tax.toString()).build();
+            RuleQuery query = RuleQuery.builder().ruleType(RuleTypeEnum.TAX.getType()).build();
             List<RuleDO> result = ruleDOMapper.queryPage(query);
 
             RuleDO ruleDO = new RuleDO();

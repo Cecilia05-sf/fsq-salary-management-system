@@ -1,7 +1,7 @@
 package com.fsq.fsqsalary.po;
 
 public enum RuleTypeEnum {
-    tax("tax"), pension( "pension"), medicare( "medicare"), unemploy("unemploy"), housing("housing");
+    TAX("tax"), PENSION( "pension"), MEDICARE( "medicare"), UNEMPLOY("unemploy"), HOUSING("housing");
 
     private String type;
 

@@ -26,11 +26,5 @@ public class IndexController {
     public String index() {
         return "index";
     }
-//    @RequestMapping("/employee")
-//    public String showEmployee(Model model){
-//        EmployeeQuery query = EmployeeQuery.builder().build();
-//        List<EmployeeInfoDO> all = employeeInfoDOMapper.queryPage(query);
-//        model.addAttribute("all",all);
-//        return "employeeInfo";
-//    }
+
 }
